@@ -7,3 +7,5 @@ enabledModels:
   - amazon-bedrock/zai.glm-5
   - amazon-bedrock/zai.glm-4.7
   - amazon-bedrock/openai.gpt-oss-120b-1:0
+  # Bedrock only offers Kimi K3 on its global route, which can leave the EU
+  - amazon-bedrock/global.moonshotai.kimi-k3

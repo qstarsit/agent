@@ -153,7 +153,8 @@ git clone https://github.com/octocat/Hello-World.git /workspace
 omp
 ```
 
-- Switch models with `/model`. GLM-5 is the default. GLM-4.7 and gpt-oss-120b are also available.
+- Switch models with `/model`. GLM-5 is the default. GLM-4.7, gpt-oss-120b and Kimi K3 are also available. Kimi K3 runs on Bedrock's global route, so its requests can be processed outside the EU.
+- The container also has `kubectl`, `helm`, `k9s`, `sofka`, `uv` and `oha`, and the agent has a Kubernetes MCP server. Point them at a cluster with `set-kubeconfig`.
 - To leave oh-my-pi, type `/quit`.
 
 ## Good to know

@@ -39,6 +39,8 @@
     "containerEnv": {
         "HOME": "/home/dev",
         // Workshop Bedrock endpoint: EU (Stockholm). The key goes in via `set-key`.
-        "AWS_REGION": "eu-north-1"
+        "AWS_REGION": "eu-north-1",
+        // Kubeconfig for the exercise cluster, on the omp-config volume. Set it with `set-kubeconfig`.
+        "KUBECONFIG": "/home/dev/.omp/kube/config"
     }
 }
