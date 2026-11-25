@@ -1,0 +1,44 @@
+{
+    "name": "rootless-agent",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": { "USERNAME": "dev", "USER_UID": "1000", "USER_GID": "1000" }
+    },
+
+    // Run as the unprivileged user, for both the container and VS Code server
+    "containerUser": "dev",
+    "remoteUser": "dev",
+    // dev must not get your host UID: that UID is not mapped into the container
+    "updateRemoteUserUID": false,
+
+    "runArgs": [
+        // Don't map your host UID into the container (overrides the tooling's --userns=keep-id)
+        "--userns=nomap",
+        // No Linux capabilities at all
+        "--cap-drop=ALL",
+        // setuid binaries (sudo, su, ping...) cannot gain privileges
+        "--security-opt=no-new-privileges",
+        // Resource ceiling
+        "--pids-limit=4096"
+    ],
+
+    // Don't mount the host folder: the project lives in the volume below
+    "workspaceMount": "",
+    "workspaceFolder": "/workspace",
+
+    "mounts": [
+        // The project, one volume per project folder
+        "source=workspace-${devcontainerId},target=/workspace,type=volume",
+        // oh-my-pi settings, API key and sessions, kept across rebuilds
+        "source=omp-config-${devcontainerId},target=/home/dev/.omp,type=volume",
+        // This configuration, readable but not changeable for the agent;
+        // z relabels .devcontainer once, so SELinux lets the container read it
+        "source=${localWorkspaceFolder}/.devcontainer,target=/devcontainer-config,type=bind,readonly,z"
+    ],
+
+    "containerEnv": {
+        "HOME": "/home/dev",
+        // Workshop Bedrock endpoint: EU (Stockholm). The key goes in via `set-key`.
+        "AWS_REGION": "eu-north-1"
+    }
+}

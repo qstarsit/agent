@@ -1,0 +1,9 @@
+# Workshop defaults. Only these Bedrock models are allowed by the workshop keys.
+modelRoles:
+  default: amazon-bedrock/zai.glm-5
+  smol: amazon-bedrock/zai.glm-4.7
+
+enabledModels:
+  - amazon-bedrock/zai.glm-5
+  - amazon-bedrock/zai.glm-4.7
+  - amazon-bedrock/openai.gpt-oss-120b-1:0

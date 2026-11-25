@@ -1,0 +1,13 @@
+#!/bin/bash
+# podman, without the "--security-opt label=disable" that the Dev Containers
+# tooling adds to every container, so SELinux confines the container again.
+args=()
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --security-opt)
+      if [ "${2-}" = label=disable ]; then shift 2; continue; fi ;;
+    --security-opt=label=disable) shift; continue ;;
+  esac
+  args+=("$1"); shift
+done
+exec podman "${args[@]}"
